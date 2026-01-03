@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Star, Zap, Shield, Clock } from "lucide-react";
+import Image from "next/image";
 import Section, { SectionHeader } from "@/components/ui/Section";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
@@ -11,7 +12,7 @@ const products = [
   {
     name: "RoboArm Pro X7",
     category: "Industrial Robot",
-    image: "/products/roboarm-pro.jpg",
+    image: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=500&q=80",
     description: "High-precision 6-axis industrial robot with 7kg payload capacity.",
     specs: { payload: "7kg", reach: "800mm", repeatability: "±0.02mm" },
     rating: 4.9,
@@ -20,7 +21,7 @@ const products = [
   {
     name: "CoBot Flex S3",
     category: "Collaborative Robot",
-    image: "/products/cobot-flex.jpg",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80",
     description: "Safe human-robot collaboration with advanced force sensing.",
     specs: { payload: "3kg", reach: "500mm", repeatability: "±0.03mm" },
     rating: 4.8,
@@ -29,7 +30,7 @@ const products = [
   {
     name: "MobileBot Cargo M1",
     category: "AMR",
-    image: "/products/mobilebot-cargo.jpg",
+    image: "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=500&q=80",
     description: "Autonomous mobile robot for warehouse logistics and material handling.",
     specs: { payload: "100kg", speed: "2m/s", runtime: "8 hours" },
     rating: 4.7,
@@ -38,7 +39,7 @@ const products = [
   {
     name: "VisionAI Module",
     category: "Vision System",
-    image: "/products/visionai.jpg",
+    image: "https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=500&q=80",
     description: "AI-powered vision system for quality inspection and object recognition.",
     specs: { resolution: "12MP", fps: "60fps", accuracy: "99.5%" },
     rating: 4.9,
@@ -68,18 +69,19 @@ export default function FeaturedProducts() {
         {products.map((product) => (
           <StaggerItem key={product.name}>
             <Card className="h-full group">
-              {/* Product Image Placeholder */}
-              <div className="relative h-48 bg-gradient-to-br from-[#1f1f2e] to-[#0a0a0f] rounded-xl mb-4 overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-24 h-24 rounded-xl gradient-bg opacity-50 blur-xl" />
-                  <span className="absolute text-4xl font-bold text-white/10">
-                    {product.category.charAt(0)}
-                  </span>
-                </div>
+              {/* Product Image */}
+              <div className="relative h-48 rounded-xl mb-4 overflow-hidden image-hover-zoom">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover"
+                />
 
                 {/* Badge */}
                 {product.badge && (
-                  <span className="absolute top-3 left-3 px-2 py-1 text-xs font-medium text-white bg-[#8b5cf6] rounded-full">
+                  <span className="absolute top-3 left-3 px-2 py-1 text-xs font-medium text-white bg-[#8b5cf6] rounded-full z-10">
                     {product.badge}
                   </span>
                 )}

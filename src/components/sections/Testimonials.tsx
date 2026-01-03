@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Quote, Star } from "lucide-react";
+import Image from "next/image";
 import Section, { SectionHeader } from "@/components/ui/Section";
 import { StaggerContainer, StaggerItem } from "@/components/animations/FadeIn";
 
@@ -12,6 +13,7 @@ const testimonials = [
     author: "Sarah Chen",
     role: "VP of Operations",
     company: "TechManufacturing Inc.",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80",
     rating: 5,
   },
   {
@@ -20,6 +22,7 @@ const testimonials = [
     author: "Michael Rodriguez",
     role: "Plant Manager",
     company: "AutoParts Global",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
     rating: 5,
   },
   {
@@ -28,6 +31,7 @@ const testimonials = [
     author: "Jennifer Walsh",
     role: "Director of Engineering",
     company: "Precision Electronics",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80",
     rating: 5,
   },
 ];
@@ -67,14 +71,14 @@ export default function Testimonials() {
 
               {/* Author */}
               <div className="flex items-center space-x-4">
-                {/* Avatar placeholder */}
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#8b5cf6] to-[#06b6d4] flex items-center justify-center">
-                  <span className="text-white font-semibold">
-                    {testimonial.author
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </span>
+                <div className="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-[#8b5cf6]/30">
+                  <Image
+                    src={testimonial.image}
+                    alt={testimonial.author}
+                    fill
+                    sizes="48px"
+                    className="object-cover"
+                  />
                 </div>
                 <div>
                   <p className="font-semibold text-white">{testimonial.author}</p>

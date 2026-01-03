@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Filter, Star, ArrowRight, X } from "lucide-react";
+import Image from "next/image";
 import Section from "@/components/ui/Section";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
@@ -23,6 +24,7 @@ const products = [
     id: 1,
     name: "RoboArm Pro X7",
     category: "industrial",
+    image: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=500&q=80",
     description: "High-precision 6-axis industrial robot with 7kg payload capacity for assembly and welding applications.",
     specs: { payload: "7kg", reach: "800mm", repeatability: "±0.02mm", axes: "6" },
     rating: 4.9,
@@ -34,6 +36,7 @@ const products = [
     id: 2,
     name: "RoboArm Heavy H15",
     category: "industrial",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&q=80",
     description: "Heavy-duty industrial robot designed for material handling and palletizing with 15kg capacity.",
     specs: { payload: "15kg", reach: "1200mm", repeatability: "±0.05mm", axes: "6" },
     rating: 4.8,
@@ -45,6 +48,7 @@ const products = [
     id: 3,
     name: "CoBot Flex S3",
     category: "collaborative",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80",
     description: "Safe human-robot collaboration with advanced force sensing and intuitive programming.",
     specs: { payload: "3kg", reach: "500mm", repeatability: "±0.03mm", axes: "6" },
     rating: 4.8,
@@ -56,6 +60,7 @@ const products = [
     id: 4,
     name: "CoBot Assist A5",
     category: "collaborative",
+    image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=500&q=80",
     description: "Versatile collaborative robot perfect for machine tending and quality inspection tasks.",
     specs: { payload: "5kg", reach: "700mm", repeatability: "±0.02mm", axes: "7" },
     rating: 4.7,
@@ -67,6 +72,7 @@ const products = [
     id: 5,
     name: "MobileBot Cargo M1",
     category: "amr",
+    image: "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=500&q=80",
     description: "Autonomous mobile robot for warehouse logistics and material handling operations.",
     specs: { payload: "100kg", speed: "2m/s", runtime: "8 hours", navigation: "LiDAR" },
     rating: 4.7,
@@ -78,6 +84,7 @@ const products = [
     id: 6,
     name: "MobileBot Scout S2",
     category: "amr",
+    image: "https://images.unsplash.com/photo-1555255707-c07966088b7b?w=500&q=80",
     description: "Compact AMR designed for last-mile delivery and light logistics applications.",
     specs: { payload: "50kg", speed: "1.5m/s", runtime: "6 hours", navigation: "Vision" },
     rating: 4.6,
@@ -89,6 +96,7 @@ const products = [
     id: 7,
     name: "VisionAI Pro Module",
     category: "vision",
+    image: "https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=500&q=80",
     description: "AI-powered vision system for quality inspection, object recognition, and guidance.",
     specs: { resolution: "12MP", fps: "60fps", accuracy: "99.5%", interface: "GigE" },
     rating: 4.9,
@@ -100,6 +108,7 @@ const products = [
     id: 8,
     name: "VisionAI Lite",
     category: "vision",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&q=80",
     description: "Cost-effective vision solution for basic inspection and barcode reading.",
     specs: { resolution: "5MP", fps: "30fps", accuracy: "98%", interface: "USB3" },
     rating: 4.5,
@@ -111,6 +120,7 @@ const products = [
     id: 9,
     name: "GripMaster Pro G3",
     category: "grippers",
+    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=500&q=80",
     description: "Adaptive parallel gripper with force control for delicate handling applications.",
     specs: { grip: "3-150mm", force: "40N", weight: "1.2kg", fingers: "2" },
     rating: 4.8,
@@ -122,6 +132,7 @@ const products = [
     id: 10,
     name: "VacuGrip V5",
     category: "grippers",
+    image: "https://images.unsplash.com/photo-1563770660941-20978e870e26?w=500&q=80",
     description: "Vacuum gripper system for handling flat and porous materials efficiently.",
     specs: { suction: "500N", cups: "4", weight: "2.1kg", flow: "40 L/min" },
     rating: 4.6,
@@ -133,6 +144,7 @@ const products = [
     id: 11,
     name: "ControlBox Ultra C8",
     category: "controllers",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&q=80",
     description: "High-performance robot controller with multi-axis synchronization capabilities.",
     specs: { axes: "8", io: "64 I/O", memory: "4GB", communication: "EtherCAT" },
     rating: 4.9,
@@ -144,6 +156,7 @@ const products = [
     id: 12,
     name: "ControlBox Compact C4",
     category: "controllers",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=500&q=80",
     description: "Compact controller solution for small to medium robot applications.",
     specs: { axes: "4", io: "32 I/O", memory: "2GB", communication: "Ethernet/IP" },
     rating: 4.7,
@@ -259,20 +272,24 @@ export default function ProductsPage() {
               {filteredProducts.map((product) => (
                 <StaggerItem key={product.id}>
                   <Card className="h-full group">
-                    {/* Product Image Placeholder */}
-                    <div className="relative h-48 bg-gradient-to-br from-[#1f1f2e] to-[#0a0a0f] rounded-xl mb-4 overflow-hidden">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-24 h-24 rounded-xl gradient-bg opacity-30 blur-xl" />
-                        <span className="absolute text-5xl font-bold text-white/5">
-                          {product.name.charAt(0)}
-                        </span>
-                      </div>
+                    {/* Product Image */}
+                    <div className="relative h-48 rounded-xl mb-4 overflow-hidden image-hover-zoom">
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        className="object-cover"
+                      />
 
                       {product.badge && (
-                        <span className="absolute top-3 left-3 px-2 py-1 text-xs font-medium text-white bg-[#8b5cf6] rounded-full">
+                        <span className="absolute top-3 left-3 px-2 py-1 text-xs font-medium text-white bg-[#8b5cf6] rounded-full z-10">
                           {product.badge}
                         </span>
                       )}
+
+                      {/* Hover overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
 
                     {/* Content */}

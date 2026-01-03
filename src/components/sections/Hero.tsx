@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Play, Cpu, Cog, Zap } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
+import Image from "next/image";
 import Button from "@/components/ui/Button";
 
 export default function Hero() {
@@ -107,64 +108,22 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative hidden lg:block"
           >
-            {/* Main visual - Robot illustration placeholder */}
             <div className="relative">
               {/* Central glow */}
               <div className="absolute inset-0 bg-gradient-to-r from-[#8b5cf6] via-[#06b6d4] to-[#ec4899] rounded-3xl blur-3xl opacity-20" />
 
-              {/* Main container */}
-              <div className="relative glass-card rounded-3xl p-8 overflow-hidden">
-                {/* Animated grid */}
-                <div className="absolute inset-0 opacity-10">
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      backgroundImage: `radial-gradient(circle at 2px 2px, #8b5cf6 1px, transparent 0)`,
-                      backgroundSize: "32px 32px",
-                    }}
-                  />
-                </div>
-
-                {/* Robot arm visualization */}
-                <div className="relative aspect-square flex items-center justify-center">
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute w-64 h-64 border border-[#8b5cf6]/30 rounded-full"
-                  />
-                  <motion.div
-                    animate={{ rotate: -360 }}
-                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                    className="absolute w-48 h-48 border border-[#06b6d4]/30 rounded-full"
-                  />
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                    className="absolute w-32 h-32 border border-[#ec4899]/30 rounded-full"
-                  />
-
-                  {/* Center icon */}
-                  <div className="relative z-10 p-6 rounded-2xl gradient-bg animate-pulse-glow">
-                    <Cpu className="w-12 h-12 text-white" />
-                  </div>
-                </div>
-
-                {/* Floating icons */}
-                <motion.div
-                  animate={{ y: [-10, 10, -10] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute top-8 right-8 p-3 glass-card rounded-xl"
-                >
-                  <Cog className="w-6 h-6 text-[#8b5cf6]" />
-                </motion.div>
-
-                <motion.div
-                  animate={{ y: [10, -10, 10] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute bottom-8 left-8 p-3 glass-card rounded-xl"
-                >
-                  <Zap className="w-6 h-6 text-[#06b6d4]" />
-                </motion.div>
+              {/* Main container with image */}
+              <div className="relative glass-card rounded-3xl overflow-hidden image-hover-zoom">
+                <Image
+                  src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80"
+                  alt="Industrial robot arm in modern automation facility"
+                  width={600}
+                  height={500}
+                  priority
+                  className="w-full h-auto object-cover"
+                />
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/60 via-transparent to-transparent" />
               </div>
             </div>
           </motion.div>

@@ -14,6 +14,7 @@ import {
   Linkedin,
   Twitter,
 } from "lucide-react";
+import Image from "next/image";
 import Section, { SectionHeader } from "@/components/ui/Section";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
@@ -51,37 +52,37 @@ const team = [
     name: "Alex Chen",
     role: "CEO & Founder",
     bio: "20+ years in robotics and automation. Former engineering lead at Boston Dynamics.",
-    image: null,
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
   },
   {
     name: "Sarah Martinez",
     role: "CTO",
     bio: "Expert in AI and computer vision. PhD from MIT in Robotics.",
-    image: null,
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80",
   },
   {
     name: "David Park",
     role: "VP of Engineering",
     bio: "Specialist in industrial automation. 15+ years of deployment experience.",
-    image: null,
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
   },
   {
     name: "Emily Johnson",
     role: "Head of Sales",
     bio: "Passionate about connecting businesses with the right robotics solutions.",
-    image: null,
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80",
   },
   {
     name: "Michael Wong",
     role: "Director of Support",
     bio: "Dedicated to ensuring client success through exceptional after-sales service.",
-    image: null,
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80",
   },
   {
     name: "Lisa Thompson",
     role: "Lead Engineer",
     bio: "Expert in system integration and custom robotics programming.",
-    image: null,
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",
   },
 ];
 
@@ -265,14 +266,15 @@ export default function AboutPage() {
           {team.map((member) => (
             <StaggerItem key={member.name}>
               <Card className="text-center">
-                {/* Avatar placeholder */}
-                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#8b5cf6] to-[#06b6d4] flex items-center justify-center">
-                  <span className="text-2xl font-bold text-white">
-                    {member.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </span>
+                {/* Team Member Photo */}
+                <div className="relative w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden ring-2 ring-[#8b5cf6]/30">
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    sizes="96px"
+                    className="object-cover"
+                  />
                 </div>
                 <h3 className="text-lg font-semibold text-white">{member.name}</h3>
                 <p className="text-sm text-[#8b5cf6] mb-2">{member.role}</p>
