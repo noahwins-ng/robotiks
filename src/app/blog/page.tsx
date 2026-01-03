@@ -1,112 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Calendar, Clock, ArrowRight, Tag, User } from "lucide-react";
 import Section from "@/components/ui/Section";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import FadeIn, { StaggerContainer, StaggerItem } from "@/components/animations/FadeIn";
-
-const categories = [
-  { id: "all", label: "All Posts" },
-  { id: "industry", label: "Industry Trends" },
-  { id: "technology", label: "Technology" },
-  { id: "case-studies", label: "Case Studies" },
-  { id: "tutorials", label: "Tutorials" },
-  { id: "news", label: "Company News" },
-];
-
-const blogPosts = [
-  {
-    id: 1,
-    title: "The Future of Collaborative Robots in Manufacturing",
-    excerpt:
-      "Explore how cobots are revolutionizing manufacturing floors by enabling safe human-robot collaboration and increasing productivity.",
-    category: "industry",
-    author: "Sarah Martinez",
-    date: "Dec 28, 2024",
-    readTime: "8 min read",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "5 Key Considerations When Choosing Industrial Robots",
-    excerpt:
-      "A comprehensive guide to help you make informed decisions when selecting industrial robots for your automation needs.",
-    category: "tutorials",
-    author: "David Park",
-    date: "Dec 22, 2024",
-    readTime: "6 min read",
-    featured: true,
-  },
-  {
-    id: 3,
-    title: "How AI is Transforming Quality Inspection",
-    excerpt:
-      "Discover how artificial intelligence and machine learning are enhancing quality control processes in manufacturing.",
-    category: "technology",
-    author: "Alex Chen",
-    date: "Dec 18, 2024",
-    readTime: "7 min read",
-    featured: false,
-  },
-  {
-    id: 4,
-    title: "Case Study: Automotive Assembly Line Automation",
-    excerpt:
-      "Learn how we helped a major automotive manufacturer increase production efficiency by 45% through robotic automation.",
-    category: "case-studies",
-    author: "Lisa Thompson",
-    date: "Dec 15, 2024",
-    readTime: "10 min read",
-    featured: false,
-  },
-  {
-    id: 5,
-    title: "Understanding Robot Safety Standards",
-    excerpt:
-      "A deep dive into ISO 10218 and other safety standards that govern industrial and collaborative robot deployments.",
-    category: "tutorials",
-    author: "Michael Wong",
-    date: "Dec 10, 2024",
-    readTime: "9 min read",
-    featured: false,
-  },
-  {
-    id: 6,
-    title: "Robotiks Announces Global Expansion",
-    excerpt:
-      "We're excited to announce the opening of new offices in Europe and Asia to better serve our growing client base.",
-    category: "news",
-    author: "Alex Chen",
-    date: "Dec 5, 2024",
-    readTime: "4 min read",
-    featured: false,
-  },
-  {
-    id: 7,
-    title: "Mobile Robots: The Future of Warehouse Logistics",
-    excerpt:
-      "Autonomous mobile robots are transforming warehouse operations. Here's what you need to know about AMR technology.",
-    category: "technology",
-    author: "Emily Johnson",
-    date: "Dec 1, 2024",
-    readTime: "6 min read",
-    featured: false,
-  },
-  {
-    id: 8,
-    title: "Case Study: Electronics Manufacturing Precision",
-    excerpt:
-      "How precision robotics helped an electronics manufacturer achieve 99.9% quality rates in component assembly.",
-    category: "case-studies",
-    author: "David Park",
-    date: "Nov 28, 2024",
-    readTime: "8 min read",
-    featured: false,
-  },
-];
+import { blogPosts, categories } from "@/lib/blog-data";
 
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -174,15 +77,20 @@ export default function BlogPage() {
               <h2 className="text-2xl font-bold text-white">Featured Articles</h2>
             </FadeIn>
 
-            <StaggerContainer className="grid md:grid-cols-2 gap-8">
+            <StaggerContainer key={`featured-${selectedCategory}`} className="grid md:grid-cols-2 gap-8">
               {featuredPosts.map((post) => (
                 <StaggerItem key={post.id}>
-                  <Card className="h-full group">
-                    {/* Image Placeholder */}
-                    <div className="relative h-48 bg-gradient-to-br from-[#1f1f2e] to-[#0a0a0f] rounded-xl mb-6 overflow-hidden">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-32 h-32 rounded-full gradient-bg opacity-20 blur-2xl" />
-                      </div>
+                  <Link href={`/blog/${post.slug}`}>
+                    <Card className="h-full group cursor-pointer">
+                    {/* Image */}
+                    <div className="relative h-48 rounded-xl mb-6 overflow-hidden">
+                      <Image
+                        src={post.image}
+                        alt={post.title}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/60 to-transparent" />
                       <span className="absolute top-4 left-4 px-3 py-1 text-xs font-medium text-white bg-[#8b5cf6] rounded-full">
                         Featured
                       </span>
@@ -230,6 +138,7 @@ export default function BlogPage() {
                       </div>
                     </div>
                   </Card>
+                  </Link>
                 </StaggerItem>
               ))}
             </StaggerContainer>
@@ -242,15 +151,20 @@ export default function BlogPage() {
             <h2 className="text-2xl font-bold text-white">All Articles</h2>
           </FadeIn>
 
-          <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <StaggerContainer key={`regular-${selectedCategory}`} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {regularPosts.map((post) => (
               <StaggerItem key={post.id}>
-                <Card className="h-full group">
-                  {/* Image Placeholder */}
-                  <div className="relative h-40 bg-gradient-to-br from-[#1f1f2e] to-[#0a0a0f] rounded-xl mb-4 overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-20 h-20 rounded-full gradient-bg opacity-20 blur-xl" />
-                    </div>
+                <Link href={`/blog/${post.slug}`}>
+                  <Card className="h-full group cursor-pointer">
+                  {/* Image */}
+                  <div className="relative h-40 rounded-xl mb-4 overflow-hidden">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/40 to-transparent" />
                   </div>
 
                   {/* Content */}
@@ -275,7 +189,8 @@ export default function BlogPage() {
                       <ArrowRight className="w-4 h-4 text-[#a1a1aa] group-hover:text-[#8b5cf6] transition-colors" />
                     </div>
                   </div>
-                </Card>
+                  </Card>
+                </Link>
               </StaggerItem>
             ))}
           </StaggerContainer>

@@ -57,4 +57,4 @@ Check these files for detailed patterns when relevant:
 
 | Topic | File |
 |-------|------|
-| Architectural patterns | `.claude/docs/architectural_patterns.md` |
+| Architectural patterns | `.claude/architectural_patterns.md` |

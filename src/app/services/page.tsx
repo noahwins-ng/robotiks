@@ -186,7 +186,7 @@ export default function ServicesPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Content */}
             <FadeIn direction={serviceIndex % 2 === 0 ? "left" : "right"}>
-              <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-br ${service.color} mb-6`}>
+              <div className={`flex w-fit p-4 rounded-2xl bg-gradient-to-br ${service.color} mb-4`}>
                 <service.icon className="w-8 h-8 text-white" />
               </div>
               <span className="text-sm font-medium text-[#8b5cf6] uppercase tracking-wider">
@@ -220,7 +220,7 @@ export default function ServicesPage() {
               {service.features.map((feature) => (
                 <StaggerItem key={feature.title}>
                   <Card className="h-full">
-                    <div className={`inline-flex p-2 rounded-lg bg-gradient-to-br ${service.color} mb-4`}>
+                    <div className={`inline-flex p-2 rounded-lg bg-gradient-to-br ${service.color} mb-5`}>
                       <feature.icon className="w-5 h-5 text-white" />
                     </div>
                     <h3 className="font-semibold text-white mb-2">{feature.title}</h3>
